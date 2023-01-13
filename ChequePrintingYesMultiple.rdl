@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="PaymentVoucher">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PaymentVoucher</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PaymentVoucher</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="sUMmm">
+          <DataField>sUMmm</DataField>
+        </Field>
+        <Field Name="Check_No">
+          <DataField>Check_No</DataField>
+        </Field>
+        <Field Name="txtOnAccOf">
+          <DataField>txtOnAccOf</DataField>
+        </Field>
+        <Field Name="CheckInFavourOf">
+          <DataField>CheckInFavourOf</DataField>
+        </Field>
+        <Field Name="Project">
+          <DataField>Project</DataField>
+        </Field>
+        <Field Name="Cost_Centre">
+          <DataField>Cost_Centre</DataField>
+        </Field>
+        <Field Name="CreditAmount_GenJnlLine">
+          <DataField>CreditAmount_GenJnlLine</DataField>
+        </Field>
+        <Field Name="CreditAmount_GenJnlLineFormat">
+          <DataField>CreditAmount_GenJnlLineFormat</DataField>
+        </Field>
+        <Field Name="BankName">
+          <DataField>BankName</DataField>
+        </Field>
+        <Field Name="DescriptionText">
+          <DataField>DescriptionText</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="Payee">
+          <DataField>Payee</DataField>
+        </Field>
+        <Field Name="Amount_GenJnlLine">
+          <DataField>Amount_GenJnlLine</DataField>
+        </Field>
+        <Field Name="Amount_GenJnlLineFormat">
+          <DataField>Amount_GenJnlLineFormat</DataField>
+        </Field>
+        <Field Name="DocDate">
+          <DataField>DocDate</DataField>
+        </Field>
+        <Field Name="AccPayee">
+          <DataField>AccPayee</DataField>
+        </Field>
+        <Field Name="ChequeDate">
+          <DataField>ChequeDate</DataField>
+        </Field>
+        <Field Name="CheckToName">
+          <DataField>CheckToName</DataField>
+        </Field>
+        <Field Name="boolPrintAuthSign">
+          <DataField>boolPrintAuthSign</DataField>
+        </Field>
+        <Field Name="AmntInWrds">
+          <DataField>AmntInWrds</DataField>
+        </Field>
+        <Field Name="txtPrnDtl">
+          <DataField>txtPrnDtl</DataField>
+        </Field>
+        <Field Name="JnlTemplateName_GenJnlLine">
+          <DataField>JnlTemplateName_GenJnlLine</DataField>
+        </Field>
+        <Field Name="JnlBatchName_GenJnlLine">
+          <DataField>JnlBatchName_GenJnlLine</DataField>
+        </Field>
+        <Field Name="LineNo_GenJnlLine">
+          <DataField>LineNo_GenJnlLine</DataField>
+        </Field>
+        <Field Name="DocumentNo_Body">
+          <DataField>DocumentNo_Body</DataField>
+        </Field>
+        <Field Name="Narration">
+          <DataField>Narration</DataField>
+        </Field>
+        <Field Name="CheckToAddr1">
+          <DataField>CheckToAddr1</DataField>
+        </Field>
+        <Field Name="CheckDateText1">
+          <DataField>CheckDateText1</DataField>
+        </Field>
+        <Field Name="CheckNoText1">
+          <DataField>CheckNoText1</DataField>
+        </Field>
+        <Field Name="FirstPage">
+          <DataField>FirstPage</DataField>
+        </Field>
+        <Field Name="PreprintedStub">
+          <DataField>PreprintedStub</DataField>
+        </Field>
+        <Field Name="CheckNoCaption">
+          <DataField>CheckNoCaption</DataField>
+        </Field>
+        <Field Name="NetAmt">
+          <DataField>NetAmt</DataField>
+        </Field>
+        <Field Name="TotalLineDiscLineDisc">
+          <DataField>TotalLineDiscLineDisc</DataField>
+        </Field>
+        <Field Name="TotalLineDiscLineDiscFormat">
+          <DataField>TotalLineDiscLineDiscFormat</DataField>
+        </Field>
+        <Field Name="TotalLineAmtLineAmt">
+          <DataField>TotalLineAmtLineAmt</DataField>
+        </Field>
+        <Field Name="TotalLineAmtLineAmtFormat">
+          <DataField>TotalLineAmtLineAmtFormat</DataField>
+        </Field>
+        <Field Name="TotalLineAmtLineAmt2">
+          <DataField>TotalLineAmtLineAmt2</DataField>
+        </Field>
+        <Field Name="TotalLineAmtLineAmt2Format">
+          <DataField>TotalLineAmtLineAmt2Format</DataField>
+        </Field>
+        <Field Name="TDSAmtWorkTaxAmt">
+          <DataField>TDSAmtWorkTaxAmt</DataField>
+        </Field>
+        <Field Name="TDSAmtWorkTaxAmtFormat">
+          <DataField>TDSAmtWorkTaxAmtFormat</DataField>
+        </Field>
+        <Field Name="LineAmt">
+          <DataField>LineAmt</DataField>
+        </Field>
+        <Field Name="LineAmtFormat">
+          <DataField>LineAmtFormat</DataField>
+        </Field>
+        <Field Name="LineDisc">
+          <DataField>LineDisc</DataField>
+        </Field>
+        <Field Name="LineDiscFormat">
+          <DataField>LineDiscFormat</DataField>
+        </Field>
+        <Field Name="LineAmtLineDisc">
+          <DataField>LineAmtLineDisc</DataField>
+        </Field>
+        <Field Name="LineAmtLineDiscFormat">
+          <DataField>LineAmtLineDiscFormat</DataField>
+        </Field>
+        <Field Name="DocNo">
+          <DataField>DocNo</DataField>
+        </Field>
+        <Field Name="CurrencyCode2">
+          <DataField>CurrencyCode2</DataField>
+        </Field>
+        <Field Name="CurrentLineAmt">
+          <DataField>CurrentLineAmt</DataField>
+        </Field>
+        <Field Name="CurrentLineAmtFormat">
+          <DataField>CurrentLineAmtFormat</DataField>
+        </Field>
+        <Field Name="JnlBankChargesAmt">
+          <DataField>JnlBankChargesAmt</DataField>
+        </Field>
+        <Field Name="JnlBankChargesAmtFormat">
+          <DataField>JnlBankChargesAmtFormat</DataField>
+        </Field>
+        <Field Name="NetAmtCaption">
+          <DataField>NetAmtCaption</DataField>
+        </Field>
+        <Field Name="DiscCaption">
+          <DataField>DiscCaption</DataField>
+        </Field>
+        <Field Name="AmtCaption">
+          <DataField>AmtCaption</DataField>
+        </Field>
+        <Field Name="DocNoCaption">
+          <DataField>DocNoCaption</DataField>
+        </Field>
+        <Field Name="DocDateCaption">
+          <DataField>DocDateCaption</DataField>
+        </Field>
+        <Field Name="CurrCodeCaption">
+          <DataField>CurrCodeCaption</DataField>
+        </Field>
+        <Field Name="YourDocNoCaption">
+          <DataField>YourDocNoCaption</DataField>
+        </Field>
+        <Field Name="TDSCaption">
+          <DataField>TDSCaption</DataField>
+        </Field>
+        <Field Name="BankChargeCaption">
+          <DataField>BankChargeCaption</DataField>
+        </Field>
+        <Field Name="TransportCaption">
+          <DataField>TransportCaption</DataField>
+        </Field>
+        <Field Name="ExtDocNo">
+          <DataField>ExtDocNo</DataField>
+        </Field>
+        <Field Name="CheckAmtText">
+          <DataField>CheckAmtText</DataField>
+        </Field>
+        <Field Name="CheckDateText2">
+          <DataField>CheckDateText2</DataField>
+        </Field>
+        <Field Name="CommentLine2">
+          <DataField>CommentLine2</DataField>
+        </Field>
+        <Field Name="CommentLine1">
+          <DataField>CommentLine1</DataField>
+        </Field>
+        <Field Name="CheckToAddr6">
+          <DataField>CheckToAddr6</DataField>
+        </Field>
+        <Field Name="CheckToAddr2">
+          <DataField>CheckToAddr2</DataField>
+        </Field>
+        <Field Name="CheckToAddr4">
+          <DataField>CheckToAddr4</DataField>
+        </Field>
+        <Field Name="CheckToAddr3">
+          <DataField>CheckToAddr3</DataField>
+        </Field>
+        <Field Name="CheckToAddr5">
+          <DataField>CheckToAddr5</DataField>
+        </Field>
+        <Field Name="CompanyAddr4">
+          <DataField>CompanyAddr4</DataField>
+        </Field>
+        <Field Name="CompanyAddr8">
+          <DataField>CompanyAddr8</DataField>
+        </Field>
+        <Field Name="CompanyAddr7">
+          <DataField>CompanyAddr7</DataField>
+        </Field>
+        <Field Name="CompanyAddr6">
+          <DataField>CompanyAddr6</DataField>
+        </Field>
+        <Field Name="CompanyAddr5">
+          <DataField>CompanyAddr5</DataField>
+        </Field>
+        <Field Name="CompanyAddr3">
+          <DataField>CompanyAddr3</DataField>
+        </Field>
+        <Field Name="CheckNoText2">
+          <DataField>CheckNoText2</DataField>
+        </Field>
+        <Field Name="CompanyAddr2">
+          <DataField>CompanyAddr2</DataField>
+        </Field>
+        <Field Name="CompanyAddr1">
+          <DataField>CompanyAddr1</DataField>
+        </Field>
+        <Field Name="TotalLineAmt">
+          <DataField>TotalLineAmt</DataField>
+        </Field>
+        <Field Name="TotalLineAmtFormat">
+          <DataField>TotalLineAmtFormat</DataField>
+        </Field>
+        <Field Name="TotalText">
+          <DataField>TotalText</DataField>
+        </Field>
+        <Field Name="VoidText">
+          <DataField>VoidText</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name_">
+          <DataField>GenJnlLine__Account_Name_</DataField>
+        </Field>
+        <Field Name="AmountInwords_1_">
+          <DataField>AmountInwords_1_</DataField>
+        </Field>
+        <Field Name="CheckAmountText">
+          <DataField>CheckAmountText</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date_">
+          <DataField>CheckLedgEntry__Check_Date_</DataField>
+        </Field>
+        <Field Name="AmountInwords_2_">
+          <DataField>AmountInwords_2_</DataField>
+        </Field>
+        <Field Name="AccountPayee">
+          <DataField>AccountPayee</DataField>
+        </Field>
+        <Field Name="State_BankCaption">
+          <DataField>State_BankCaption</DataField>
+        </Field>
+        <Field Name="State_Bank_of_India_Number">
+          <DataField>State_Bank_of_India_Number</DataField>
+        </Field>
+        <Field Name="StateBankBody">
+          <DataField>StateBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000016">
+          <DataField>GenJnlLine__Account_Name__Control1000000016</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000017">
+          <DataField>AmountInwords_1__Control1000000017</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000018">
+          <DataField>CheckAmountText_Control1000000018</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000019">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000019</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000023">
+          <DataField>AmountInwords_2__Control1000000023</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000020">
+          <DataField>AccountPayee_Control1000000020</DataField>
+        </Field>
+        <Field Name="ICICICaption">
+          <DataField>ICICICaption</DataField>
+        </Field>
+        <Field Name="ICICI_Bank_Number">
+          <DataField>ICICI_Bank_Number</DataField>
+        </Field>
+        <Field Name="IciciBankBody">
+          <DataField>IciciBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000027">
+          <DataField>GenJnlLine__Account_Name__Control1000000027</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000028">
+          <DataField>AmountInwords_1__Control1000000028</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000029">
+          <DataField>CheckAmountText_Control1000000029</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000030">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000030</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000031">
+          <DataField>AmountInwords_2__Control1000000031</DataField>
+        </Field>
+        <Field Name="IDBICaption">
+          <DataField>IDBICaption</DataField>
+        </Field>
+        <Field Name="IDBI_Bank_Number">
+          <DataField>IDBI_Bank_Number</DataField>
+        </Field>
+        <Field Name="IDBIBankBody">
+          <DataField>IDBIBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000033">
+          <DataField>GenJnlLine__Account_Name__Control1000000033</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000034">
+          <DataField>AmountInwords_1__Control1000000034</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000035">
+          <DataField>CheckAmountText_Control1000000035</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000036">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000036</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000037">
+          <DataField>AmountInwords_2__Control1000000037</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000038">
+          <DataField>AccountPayee_Control1000000038</DataField>
+        </Field>
+        <Field Name="CitiCaption">
+          <DataField>CitiCaption</DataField>
+        </Field>
+        <Field Name="Citi_Bank_Number">
+          <DataField>Citi_Bank_Number</DataField>
+        </Field>
+        <Field Name="CitiBankBody">
+          <DataField>CitiBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000045">
+          <DataField>GenJnlLine__Account_Name__Control1000000045</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000046">
+          <DataField>AmountInwords_1__Control1000000046</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000047">
+          <DataField>CheckAmountText_Control1000000047</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000048">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000048</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000054">
+          <DataField>AmountInwords_2__Control1000000054</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000006">
+          <DataField>AccountPayee_Control1000000006</DataField>
+        </Field>
+        <Field Name="Punjab_National_OldCaption">
+          <DataField>Punjab_National_OldCaption</DataField>
+        </Field>
+        <Field Name="Punjab_National_Bank_Old_Number">
+          <DataField>Punjab_National_Bank_Old_Number</DataField>
+        </Field>
+        <Field Name="PNBBankBody">
+          <DataField>PNBBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000058">
+          <DataField>GenJnlLine__Account_Name__Control1000000058</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000059">
+          <DataField>AmountInwords_1__Control1000000059</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000060">
+          <DataField>CheckAmountText_Control1000000060</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000061">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000061</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000065">
+          <DataField>AmountInwords_2__Control1000000065</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000062">
+          <DataField>AccountPayee_Control1000000062</DataField>
+        </Field>
+        <Field Name="HSBCCaption">
+          <DataField>HSBCCaption</DataField>
+        </Field>
+        <Field Name="HSBC_Bank_Number">
+          <DataField>HSBC_Bank_Number</DataField>
+        </Field>
+        <Field Name="HSBCBankBody">
+          <DataField>HSBCBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000069">
+          <DataField>GenJnlLine__Account_Name__Control1000000069</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000070">
+          <DataField>AmountInwords_1__Control1000000070</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000071">
+          <DataField>CheckAmountText_Control1000000071</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000072">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000072</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000078">
+          <DataField>AmountInwords_2__Control1000000078</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000075">
+          <DataField>AccountPayee_Control1000000075</DataField>
+        </Field>
+        <Field Name="Punjab_National_NewCaption">
+          <DataField>Punjab_National_NewCaption</DataField>
+        </Field>
+        <Field Name="Punjab_National_Bank_New_Number">
+          <DataField>Punjab_National_Bank_New_Number</DataField>
+        </Field>
+        <Field Name="PNB_NewBankBody">
+          <DataField>PNB_NewBankBody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000083">
+          <DataField>GenJnlLine__Account_Name__Control1000000083</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000084">
+          <DataField>AmountInwords_1__Control1000000084</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000085">
+          <DataField>CheckAmountText_Control1000000085</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000086">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000086</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000087">
+          <DataField>AmountInwords_2__Control1000000087</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000012">
+          <DataField>AccountPayee_Control1000000012</DataField>
+        </Field>
+        <Field Name="Citi_CCCaption">
+          <DataField>Citi_CCCaption</DataField>
+        </Field>
+        <Field Name="Citi_CC_Number">
+          <DataField>Citi_CC_Number</DataField>
+        </Field>
+        <Field Name="Citi_CCBankBody">
+          <DataField>Citi_CCBankBody</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000024">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000024</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000025">
+          <DataField>GenJnlLine__Account_Name__Control1000000025</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000032">
+          <DataField>AmountInwords_1__Control1000000032</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000042">
+          <DataField>CheckAmountText_Control1000000042</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000043">
+          <DataField>AmountInwords_2__Control1000000043</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000076">
+          <DataField>AccountPayee_Control1000000076</DataField>
+        </Field>
+        <Field Name="HDFC_BANKCaption">
+          <DataField>HDFC_BANKCaption</DataField>
+        </Field>
+        <Field Name="HDFC_Number">
+          <DataField>HDFC_Number</DataField>
+        </Field>
+        <Field Name="HDFC_BankBankBody">
+          <DataField>HDFC_BankBankBody</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000056">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000056</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000057">
+          <DataField>GenJnlLine__Account_Name__Control1000000057</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000066">
+          <DataField>AmountInwords_1__Control1000000066</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000073">
+          <DataField>CheckAmountText_Control1000000073</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000079">
+          <DataField>AmountInwords_2__Control1000000079</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000077">
+          <DataField>AccountPayee_Control1000000077</DataField>
+        </Field>
+        <Field Name="ABN_AMRO_BankCaption">
+          <DataField>ABN_AMRO_BankCaption</DataField>
+        </Field>
+        <Field Name="ABN_AMRO_Number">
+          <DataField>ABN_AMRO_Number</DataField>
+        </Field>
+        <Field Name="ABN_AmroBankbody">
+          <DataField>ABN_AmroBankbody</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000089">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000089</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000090">
+          <DataField>GenJnlLine__Account_Name__Control1000000090</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000101">
+          <DataField>CheckAmountText_Control1000000101</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000093">
+          <DataField>AmountInwords_1__Control1000000093</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000110">
+          <DataField>AmountInwords_2__Control1000000110</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000081">
+          <DataField>AccountPayee_Control1000000081</DataField>
+        </Field>
+        <Field Name="Canara_BankCaption">
+          <DataField>Canara_BankCaption</DataField>
+        </Field>
+        <Field Name="Canara_Number">
+          <DataField>Canara_Number</DataField>
+        </Field>
+        <Field Name="Canara_BankBody">
+          <DataField>Canara_BankBody</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000008">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000008</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000009">
+          <DataField>GenJnlLine__Account_Name__Control1000000009</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000049">
+          <DataField>CheckAmountText_Control1000000049</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000122">
+          <DataField>AmountInwords_1__Control1000000122</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000123">
+          <DataField>AmountInwords_2__Control1000000123</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000125">
+          <DataField>AccountPayee_Control1000000125</DataField>
+        </Field>
+        <Field Name="Corporation_BankCaption">
+          <DataField>Corporation_BankCaption</DataField>
+        </Field>
+        <Field Name="Corporation_Bank_Number">
+          <DataField>Corporation_Bank_Number</DataField>
+        </Field>
+        <Field Name="Corporate_Bankbody">
+          <DataField>Corporate_Bankbody</DataField>
+        </Field>
+        <Field Name="GenJnlLine__Account_Name__Control1000000121">
+          <DataField>GenJnlLine__Account_Name__Control1000000121</DataField>
+        </Field>
+        <Field Name="CheckLedgEntry__Check_Date__Control1000000124">
+          <DataField>CheckLedgEntry__Check_Date__Control1000000124</DataField>
+        </Field>
+        <Field Name="CheckAmountText_Control1000000126">
+          <DataField>CheckAmountText_Control1000000126</DataField>
+        </Field>
+        <Field Name="AmountInwords_1__Control1000000127">
+          <DataField>AmountInwords_1__Control1000000127</DataField>
+        </Field>
+        <Field Name="AmountInwords_2__Control1000000128">
+          <DataField>AmountInwords_2__Control1000000128</DataField>
+        </Field>
+        <Field Name="AccountPayee_Control1000000129">
+          <DataField>AccountPayee_Control1000000129</DataField>
+        </Field>
+        <Field Name="YES_BankCaption">
+          <DataField>YES_BankCaption</DataField>
+        </Field>
+        <Field Name="Yes_Bank_Number">
+          <DataField>Yes_Bank_Number</DataField>
+        </Field>
+        <Field Name="Yes_BankBody">
+          <DataField>Yes_BankBody</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
