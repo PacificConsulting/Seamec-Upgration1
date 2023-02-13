@@ -2,6 +2,20 @@ tableextension 50005 VendorExt1 extends Vendor
 {
     fields
     {
+        field(50006; MSME; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50007; "MSME No."; Text[30])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50008; "Vendor Type"; Option)
+        {
+
+            OptionMembers = ,"Import","Local";
+            OptionCaption = ',Import,Local';
+        }
         modify("P.A.N. No.")
         {
             trigger OnAfterValidate()
@@ -21,8 +35,44 @@ tableextension 50005 VendorExt1 extends Vendor
                     END;
             end;
         }
+        // modify("No.")
+        // {
+        //     trigger OnAfterValidate()
+        //     var
+        //         myInt: Integer;
+        //         Vendor: Record Vendor;
+        //     begin
+        //         Message('hi');
+        //         NoText := CopyStr(Rec."No.", 1, 3);
+        //         if NoText = 'SCI' then
+        //             Rec."Vendor Type" := Rec."Vendor Type"::Import
+        //         else
+        //             if NoText = 'SCL' then
+        //                 Rec."Vendor Type" := rec."Vendor Type"::Local;
+        //         Rec.Modify();
+        //     end;
+        // }
 
     }// Add changes to table fields here
+    trigger OnInsert()
+    var
+        myInt: Integer;
+        Vendor: Record Vendor;
+    begin
+        // Message('hi');
+
+        NoText := CopyStr(Rec."No.", 1, 3);
+        // Message(NoText);
+        if NoText = 'SCI' then
+            Rec."Vendor Type" := Rec."Vendor Type"::Import
+        else
+            if NoText = 'SCL' then
+                Rec."Vendor Type" := rec."Vendor Type"::Local;
+        Message(Format("Vendor Type"));
+
+        // Rec.Modify();
+    end;
+
 
     procedure CheckPanNo(PanNo: Code[10])
     var
@@ -73,6 +123,7 @@ tableextension 50005 VendorExt1 extends Vendor
         OnlyNumericErr: Label 'Only Numeric is allowed in the position %1.';
         OnlyAlphabetErr: Label 'Only Alphabet is allowed in the position %1.';
         OrderAddress: Record "Order Address";
+        NoText: Text[5];
 
 
 }

@@ -9,6 +9,7 @@ pageextension 50005 Itemcard extends "Item Card"
                 ApplicationArea = All;
             }
         }
+
     }
 
     actions

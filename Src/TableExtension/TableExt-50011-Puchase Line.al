@@ -2,7 +2,7 @@ tableextension 50011 PurchLineExt extends "Purchase Line"
 {
     fields
     {
-        field(50001; "Sr. No."; Code[10])
+        field(50001; "Sr. No."; Integer)
         {
             DataClassification = ToBeClassified;
         }
