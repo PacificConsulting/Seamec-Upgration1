@@ -194,7 +194,7 @@ report 50044 "Fixed Asset"
                     CurrReport.SKIP;
 
 
-                dydate :=0D;//FADeprBook."Ready To Use Date"; // PCPL-064
+                Readydate := 0D;//FADeprBook."Ready To Use Date"; // PCPL-064
                 DepStart := FADeprBook."Depreciation Starting Date";
                 DepEnd := FADeprBook."Depreciation Ending Date";
                 IF SkipRecord THEN

@@ -2,6 +2,7 @@ tableextension 50031 PurchPayableSetup extends "Purchases & Payables Setup"
 {
     fields
     {
+
         field(50002; "Default G/L"; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -30,6 +31,7 @@ tableextension 50031 PurchPayableSetup extends "Purchases & Payables Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
     }
 
     var
