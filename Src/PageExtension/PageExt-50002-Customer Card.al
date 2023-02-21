@@ -76,6 +76,22 @@ pageextension 50002 CustomerExt extends "Customer Card"
                 CurrPage.EDITABLE(FALSE);
     end;
 
+    trigger OnQueryClosePage(closeAction: Action): Boolean
+    var
+        myInt: Integer;
+    begin
+        //PCPL-064 21feb2023<<
+        rec.TestField(Name);
+        rec.TestField(Address);
+        rec.TestField("Address 2");
+        rec.TestField("E-Mail");
+        rec.TestField("Phone No.");
+        rec.TestField("Gen. Bus. Posting Group");
+        rec.TestField("GST Registration No.");
+        rec.TestField("P.A.N. No.");
+        rec.TestField("Customer Posting Group");
+    end;
+    //PCPL-064 21feb2023<<
     var
         myInt: Integer;
 }

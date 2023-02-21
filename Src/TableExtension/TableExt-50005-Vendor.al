@@ -35,6 +35,7 @@ tableextension 50005 VendorExt1 extends Vendor
                     END;
             end;
         }
+
         // modify("No.")
         // {
         //     trigger OnAfterValidate()
@@ -70,7 +71,28 @@ tableextension 50005 VendorExt1 extends Vendor
                 Rec."Vendor Type" := rec."Vendor Type"::Local;
         Message(Format("Vendor Type"));
 
+        //PCPL-064 21feb2023<<
+        TestField(Name);
+        TestField(Address);
+        TestField("Address 2");
+        TestField("E-Mail");
+        TestField("Phone No.");
+        TestField("Gen. Bus. Posting Group");
+        TestField("GST Registration No.");
+        TestField("GST Vendor Type");
+        TestField("P.A.N. No.");
+        TestField(MSME);
+        TestField("MSME No.");
+        //PCPL-064 21feb2023<<
+
         // Rec.Modify();
+    end;
+
+    trigger OnAfterInsert()
+    var
+        myInt: Integer;
+    begin
+
     end;
 
 

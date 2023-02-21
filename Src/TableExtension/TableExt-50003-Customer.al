@@ -8,6 +8,30 @@ tableextension 50003 CustomerExt1 extends Customer
             TableRelation = "Bank Account"."No.";
         }
     }
+    trigger OnInsert()
+    var
+        myInt: Integer;
+    begin
+        //PCPL-064 21feb2023<<
+        TestField(Name);
+        TestField(Address);
+        TestField("Address 2");
+        TestField("E-Mail");
+        TestField("Phone No.");
+        TestField("Gen. Bus. Posting Group");
+        TestField("GST Registration No.");
+        TestField("P.A.N. No.");
+        TestField("Customer Posting Group");
+        //PCPL-064 21feb2023<< 
+    end;
+
+    trigger OnAfterInsert()
+    var
+        myInt: Integer;
+    begin
+
+    end;
+
     procedure CheckPanNo(PanNo: Code[10])
     var
         Position: Integer;

@@ -19,6 +19,11 @@ tableextension 50010 PurchHdrExt extends "Purchase Header"
         {
             DataClassification = ToBeClassified;
         }
+        field(50009; "Invoice Receipt Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
         modify("Shortcut Dimension 2 Code")
         {
             trigger OnBeforeValidate()

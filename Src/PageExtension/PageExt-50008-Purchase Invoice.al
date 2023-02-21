@@ -2,8 +2,17 @@ pageextension 50008 PurchaseInvExt extends "Purchase Invoice"
 {
     layout
     {
+        addafter(Status)
+        {
+            field("Invoice Receipt Date"; Rec."Invoice Receipt Date")
+            {
+                ApplicationArea = all;
+            }
+        }
+
         // Add changes to page layout here
     }
+
 
     actions
     {
@@ -27,6 +36,7 @@ pageextension 50008 PurchaseInvExt extends "Purchase Invoice"
                     Rec.TestField("Vendor Order No.");
             End;
         }
+
     }
 
     var

@@ -22,6 +22,7 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
         {
             ShowMandatory = true;
         }
+
         addafter("Balance (LCY)")
         {
             field(MSME; Rec.MSME)
@@ -41,6 +42,18 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
                 ApplicationArea = all;
             }
         }
+        addafter("Gen. Bus. Posting Group")
+        {
+            field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
+            {
+                ApplicationArea = All;
+            }
+            field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
+            {
+                ApplicationArea = All;
+            }
+        }
+
 
     }
     actions
@@ -86,6 +99,9 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
     var
         recUserSetup: Record "User Setup";
         NotificationAction: Notification;
+        DocumentAttachment: Record "Document Attachment";
+        Text1: array[3] of Text[1024];
+        NotificationMsg: Text[1024];
     begin
         recUserSetup.RESET;
         recUserSetup.SETRANGE("User ID", USERID);
@@ -95,14 +111,40 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
             ELSE
                 CurrPage.EDITABLE(FALSE);
 
-        //PCP-0070 << 08Feb2023
-        if (Rec."Phone No." = '') OR (Rec."E-Mail" = '') then begin
-            NotificationAction.Message('Do not forget to add Phone No. OR E-Mail');
-            NotificationAction.Scope := NotificationAction.Scope::LocalScope;
-            NotificationAction.Send();
-        end;
-        // PCPL-0070 >> 08Feb2023
+        //PCPL-0070 << 08Feb2023
+        if (Rec."Phone No." = '') OR (Rec."E-Mail" = '') then
+            Text1[1] := 'Do not forget to add Phone No. OR E-Mail';
+
+        DocumentAttachment.Reset();
+        DocumentAttachment.SetRange("Table ID", 23);
+        DocumentAttachment.SetRange("No.", Rec."No.");
+        if not DocumentAttachment.FindFirst() then
+            Text1[3] := 'Attachment is not attached on Document';
+
+        if (Text1[1] <> '') AND (Text1[3] <> '') then
+            Text1[2] := ' & ';
+
+        NotificationMsg := Text1[1] + Text1[2] + Text1[3];
+        NotificationAction.Message(NotificationMsg);
+        NotificationAction.Scope := NotificationAction.Scope::LocalScope;
+        NotificationAction.Send();
     end;
+    //end;
+    // PCPL-0070 >> 08Feb2023
+
+    /*
+      //PCPL-0070 << 21Feb2023
+      DocumentAttachment.Reset();
+      DocumentAttachment.SetRange("Table ID", 23);
+      DocumentAttachment.SetRange("No.", Rec."No.");
+      if not DocumentAttachment.FindFirst() then begin
+          NotificationAction.Message('Attachment is not attached on Document');
+          NotificationAction.Scope := NotificationAction.Scope::LocalScope;
+          NotificationAction.Send();
+      end;
+      //PCPL-0070 >> 21Feb2023
+  end;
+  */
 
     trigger OnClosePage()// PCPL-064
     var
@@ -124,11 +166,29 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
 
         if Rec."E-Mail" = '' then
             Message('E-mail is blank');
-    end;
+        //PCPL-064 21feb2023<<
+        rec.TestField(Name);
+        rec.TestField(Address);
+        rec.TestField("Address 2");
+        rec.TestField("E-Mail");
+        rec.TestField("Phone No.");
+        rec.TestField("Gen. Bus. Posting Group");
+        rec.TestField("GST Registration No.");
+        rec.TestField("GST Vendor Type");
+        rec.TestField("P.A.N. No.");
+        rec.TestField(MSME);
+        rec.TestField("MSME No.");
 
+        RecBankAcc.Reset();
+        RecBankAcc.SetRange("Vendor No.", rec."No.");
+        if not RecBankAcc.Find then
+            Error('Must have filled all field');
+    end;
+    //PCPL-064 21feb2023<<
 
 
     var
-        myInt: Integer;
+        myInt: Codeunit 22;
         NoText: text[5];
+        RecBankAcc: Record "Vendor Bank Account";
 }
