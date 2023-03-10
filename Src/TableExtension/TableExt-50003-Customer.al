@@ -19,7 +19,8 @@ tableextension 50003 CustomerExt1 extends Customer
         TestField("E-Mail");
         TestField("Phone No.");
         TestField("Gen. Bus. Posting Group");
-        TestField("GST Registration No.");
+        if rec."GST Customer Type" = rec."GST Customer Type"::Registered then
+            TestField("GST Registration No.");
         TestField("P.A.N. No.");
         TestField("Customer Posting Group");
         //PCPL-064 21feb2023<< 

@@ -72,20 +72,24 @@ tableextension 50005 VendorExt1 extends Vendor
         Message(Format("Vendor Type"));
 
         //PCPL-064 21feb2023<<
-        TestField(Name);
-        TestField(Address);
-        TestField("Address 2");
-        TestField("E-Mail");
-        TestField("Phone No.");
-        TestField("Gen. Bus. Posting Group");
-        TestField("GST Registration No.");
-        TestField("GST Vendor Type");
-        TestField("P.A.N. No.");
-        TestField(MSME);
-        TestField("MSME No.");
-        //PCPL-064 21feb2023<<
+        /*
+         TestField(Name);
+         TestField(Address);
+         TestField("Address 2");
+         TestField("E-Mail");
+         TestField("Phone No.");
+         TestField("Gen. Bus. Posting Group");
+         TestField("GST Vendor Type");
+         TestField("P.A.N. No.");
+         if (rec."GST Vendor Type" = rec."GST Vendor Type"::Registered) then
+             TestField("GST Registration No.");
 
-        // Rec.Modify();
+         TestField(MSME);
+         TestField("MSME No.");
+         //PCPL-064 21feb2023<<
+
+         // Rec.Modify();
+         */
     end;
 
     trigger OnAfterInsert()

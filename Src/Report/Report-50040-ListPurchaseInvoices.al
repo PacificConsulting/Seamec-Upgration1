@@ -2,6 +2,8 @@ report 50040 "List- Purchase Invoices"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/ListPurchaseInvoices.rdl';
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {

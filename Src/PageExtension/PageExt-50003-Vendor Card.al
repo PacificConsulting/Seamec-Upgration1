@@ -99,9 +99,7 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
     var
         recUserSetup: Record "User Setup";
         NotificationAction: Notification;
-        DocumentAttachment: Record "Document Attachment";
         Text1: array[3] of Text[1024];
-        NotificationMsg: Text[1024];
     begin
         recUserSetup.RESET;
         recUserSetup.SETRANGE("User ID", USERID);
@@ -112,39 +110,15 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
                 CurrPage.EDITABLE(FALSE);
 
         //PCPL-0070 << 08Feb2023
-        if (Rec."Phone No." = '') OR (Rec."E-Mail" = '') then
+        if (Rec."Phone No." = '') OR (Rec."E-Mail" = '') then Begin
             Text1[1] := 'Do not forget to add Phone No. OR E-Mail';
-
-        DocumentAttachment.Reset();
-        DocumentAttachment.SetRange("Table ID", 23);
-        DocumentAttachment.SetRange("No.", Rec."No.");
-        if not DocumentAttachment.FindFirst() then
-            Text1[3] := 'Attachment is not attached on Document';
-
-        if (Text1[1] <> '') AND (Text1[3] <> '') then
-            Text1[2] := ' & ';
-
-        NotificationMsg := Text1[1] + Text1[2] + Text1[3];
-        NotificationAction.Message(NotificationMsg);
-        NotificationAction.Scope := NotificationAction.Scope::LocalScope;
-        NotificationAction.Send();
+            NotificationAction.Message(Text1[1]);
+            NotificationAction.Scope := NotificationAction.Scope::LocalScope;
+            NotificationAction.Send();
+        end;
     end;
     //end;
     // PCPL-0070 >> 08Feb2023
-
-    /*
-      //PCPL-0070 << 21Feb2023
-      DocumentAttachment.Reset();
-      DocumentAttachment.SetRange("Table ID", 23);
-      DocumentAttachment.SetRange("No.", Rec."No.");
-      if not DocumentAttachment.FindFirst() then begin
-          NotificationAction.Message('Attachment is not attached on Document');
-          NotificationAction.Scope := NotificationAction.Scope::LocalScope;
-          NotificationAction.Send();
-      end;
-      //PCPL-0070 >> 21Feb2023
-  end;
-  */
 
     trigger OnClosePage()// PCPL-064
     var
@@ -157,15 +131,25 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
     var
         myInt: Integer;
     begin
-        if Rec.MSME = true then
+        if Rec.MSME = true then begin
             if Rec."MSME No." = '' then
-                Message('MSME No. is blank');
+                Error('MSME No. is blank');
+        end;
 
         if Rec."Phone No." = '' then
             MEssage('Phono No. is blank');
 
         if Rec."E-Mail" = '' then
             Message('E-mail is blank');
+
+        //PCPL-0070 23Feb2023 <<
+        DocumentAttachment.Reset();
+        DocumentAttachment.SetRange("Table ID", 23);
+        DocumentAttachment.SetRange("No.", Rec."No.");
+        if not DocumentAttachment.FindFirst() then
+            Message('Attachment is missing on Vendor Card');
+        //PCPL-0070 23Feb2023 >>
+
         //PCPL-064 21feb2023<<
         rec.TestField(Name);
         rec.TestField(Address);
@@ -173,22 +157,26 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
         rec.TestField("E-Mail");
         rec.TestField("Phone No.");
         rec.TestField("Gen. Bus. Posting Group");
-        rec.TestField("GST Registration No.");
-        rec.TestField("GST Vendor Type");
         rec.TestField("P.A.N. No.");
-        rec.TestField(MSME);
-        rec.TestField("MSME No.");
+        if (rec."GST Vendor Type" = rec."GST Vendor Type"::Registered) then
+            rec.TestField("GST Registration No.");
+
+        //rec.TestField(MSME);
+        //rec.TestField("MSME No.");
 
         RecBankAcc.Reset();
         RecBankAcc.SetRange("Vendor No.", rec."No.");
-        if not RecBankAcc.Find then
-            Error('Must have filled all field');
+        RecBankAcc.Setfilter(Code, '<>%1', '');
+        if NOT RecBankAcc.find('-') then
+            Error('Please add vendor Bank Account');
+        //PCPL-064 21feb2023<<
     end;
-    //PCPL-064 21feb2023<<
+
 
 
     var
-        myInt: Codeunit 22;
+        //myInt: Codeunit 22;
         NoText: text[5];
         RecBankAcc: Record "Vendor Bank Account";
+        DocumentAttachment: Record "Document Attachment";
 }

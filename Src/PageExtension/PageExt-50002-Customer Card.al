@@ -38,6 +38,7 @@ pageextension 50002 CustomerExt extends "Customer Card"
             action(ApproveCustomer)
             {
                 Caption = 'Approve Customer';
+                ApplicationArea = all;
                 trigger OnAction()
                 var
                     RecCust: Record 18;
@@ -87,7 +88,8 @@ pageextension 50002 CustomerExt extends "Customer Card"
         rec.TestField("E-Mail");
         rec.TestField("Phone No.");
         rec.TestField("Gen. Bus. Posting Group");
-        rec.TestField("GST Registration No.");
+        if rec."GST Customer Type" = rec."GST Customer Type"::Registered then
+            rec.TestField("GST Registration No.");
         rec.TestField("P.A.N. No.");
         rec.TestField("Customer Posting Group");
     end;

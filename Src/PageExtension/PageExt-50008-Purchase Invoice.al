@@ -2,14 +2,34 @@ pageextension 50008 PurchaseInvExt extends "Purchase Invoice"
 {
     layout
     {
+        //PCPL-25/090323
+        modify("Posting Description")
+        {
+            Visible = true;
+        }
+        //PCPL-25/090323
         addafter(Status)
         {
             field("Invoice Receipt Date"; Rec."Invoice Receipt Date")
             {
                 ApplicationArea = all;
             }
-        }
+            //PCPL-25/090323
+            field("Purchase Type"; Rec."Purchase Type")
+            {
+                ApplicationArea = All;
+            }
+            field("GRN No."; Rec."Vendor Shipment No.")
+            {
+                ApplicationArea = All;
+            }
+            field("Purchase Order No."; Rec."Vendor Order No.")
+            {
+                ApplicationArea = All;
+            }
+            //PCPL-25/090323          
 
+        }
         // Add changes to page layout here
     }
 
