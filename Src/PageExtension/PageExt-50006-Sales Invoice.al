@@ -2,7 +2,14 @@ pageextension 50006 SalesInvExt extends "Sales Invoice"
 {
     layout
     {
-        // Add changes to page layout here
+        addafter(Status)
+        {
+            field("Our Bank Account No."; Rec."Our Bank Account No.")
+            {
+                ApplicationArea = all;
+            }
+        }
+
     }
 
     actions

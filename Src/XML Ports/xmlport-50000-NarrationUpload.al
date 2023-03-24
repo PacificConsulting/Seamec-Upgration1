@@ -1,6 +1,13 @@
 xmlport 50000 "Narration Upload"
 {
-    Format = Xml;
+    //Format = Xml;
+
+    //PCPL-25/240323
+    Format = VariableText;
+    FieldDelimiter = '"';
+    FieldSeparator = ',';
+    FormatEvaluate = Xml;
+    //PCPL-25/240323
     Caption = 'Narration Upload';
 
     schema
@@ -20,6 +27,7 @@ xmlport 50000 "Narration Upload"
                 }
                 textattribute(Narration)
                 {
+                    Occurrence = Required;
                 }
                 textattribute(DocumentNo)
                 {

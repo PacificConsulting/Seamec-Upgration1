@@ -40,7 +40,14 @@
       "publisher": "Microsoft",
       "name": "India TCS",
       "version": "18.3.27240.27480"
+    },
+    {
+      "id": "050f6146-bffd-40de-942c-d0dd510ec20f",
+      "publisher": "Microsoft",
+      "name": "India Reports",
+      "version": "18.2.26217.26490"
     }
+    
   ],
   "screenshots": [],
   "platform": "1.0.0.0",
