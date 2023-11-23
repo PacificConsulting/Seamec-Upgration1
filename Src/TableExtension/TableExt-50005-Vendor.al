@@ -13,8 +13,8 @@ tableextension 50005 VendorExt1 extends Vendor
         field(50008; "Vendor Type"; Option)
         {
 
-            OptionMembers = ,"Import","Local";
-            OptionCaption = ',Import,Local';
+            OptionMembers = ,"Import","Local","One Time vendor","Crew";
+            OptionCaption = ',Import,Local,One Time Vendor,Crew';
         }
         modify("P.A.N. No.")
         {

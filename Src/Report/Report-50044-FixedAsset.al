@@ -2,8 +2,9 @@ report 50044 "Fixed Asset"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/FixedAsset.rdl';
-    Caption = 'Fixed Asset - Book Value 01';
-
+    Caption = 'Fixed Assets Register Seamec';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Fixed Asset"; "Fixed Asset")
@@ -299,27 +300,34 @@ report 50044 "Fixed Asset"
                     {
                         Caption = 'Depreciation Book';
                         TableRelation = "Depreciation Book";
+                        ApplicationArea = All;
                     }
                     field(StartingDate; StartingDate)
                     {
                         Caption = 'Starting Date';
+                        ApplicationArea = All;
+
                     }
                     field(EndingDate; EndingDate)
                     {
                         Caption = 'Ending Date';
+                        ApplicationArea = All;
                     }
                     field(GroupTotals; GroupTotals)
                     {
                         Caption = 'Group Totals';
                         OptionCaption = ' ,FA Class,FA Subclass,FA Location,Main Asset,Global Dimension 1,Global Dimension 2,FA Posting Group';
+                        ApplicationArea = All;
                     }
                     field(PrintDetails; PrintDetails)
                     {
                         Caption = 'Print per Fixed Asset';
+                        ApplicationArea = All;
                     }
                     field(BudgetReport; BudgetReport)
                     {
                         Caption = 'Budget Report';
+                        ApplicationArea = All;
                     }
                 }
             }

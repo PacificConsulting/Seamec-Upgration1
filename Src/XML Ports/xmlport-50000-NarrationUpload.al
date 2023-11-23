@@ -32,16 +32,17 @@ xmlport 50000 "Narration Upload"
                 textattribute(DocumentNo)
                 {
                 }
-
                 trigger OnBeforeInsertRecord()
                 begin
-                    recGenJnlLine.INIT;
-                    EVALUATE(recGenJnlLine."Line No.", LineNo);
-                    recGenJnlLine.VALIDATE("Journal Template Name", 'JOURNAL VO');
-                    recGenJnlLine.VALIDATE("Journal Batch Name", 'SALARY JV');
-                    recGenJnlLine.VALIDATE(recGenJnlLine."Document No.", DocumentNo);
-                    recGenJnlLine.Narration := Narration;
-                    recGenJnlLine.INSERT;
+                    rec_GenJnlLine.INIT;
+                    EVALUATE(rec_GenJnlLine."Line No.", LineNo);
+                    rec_GenJnlLine.VALIDATE("Journal Template Name", 'JOURNAL VO');
+                    rec_GenJnlLine.VALIDATE("Journal Batch Name", 'SALARY JV');
+                    rec_GenJnlLine.VALIDATE(rec_GenJnlLine."Document No.", DocumentNo);
+                    rec_GenJnlLine.Narration := Narration;
+                    //Evaluate(rec_GenJnlLine."Gen. Journal Line No.", LineNo);
+                    rec_GenJnlLine.INSERT;
+                    //Message('Hii');
                 end;
             }
         }

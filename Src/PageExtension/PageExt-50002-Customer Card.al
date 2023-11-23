@@ -88,9 +88,10 @@ pageextension 50002 CustomerExt extends "Customer Card"
         rec.TestField("E-Mail");
         rec.TestField("Phone No.");
         rec.TestField("Gen. Bus. Posting Group");
-        if rec."GST Customer Type" = rec."GST Customer Type"::Registered then
+        if rec."GST Customer Type" = rec."GST Customer Type"::Registered then begin
             rec.TestField("GST Registration No.");
-        rec.TestField("P.A.N. No.");
+            rec.TestField("P.A.N. No.");
+        end;
         rec.TestField("Customer Posting Group");
     end;
     //PCPL-064 21feb2023<<

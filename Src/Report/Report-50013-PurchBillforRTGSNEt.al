@@ -1,7 +1,8 @@
 report 50013 "Purch. Bill for RTGS/NEt"
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Vendor; Vendor)

@@ -15,6 +15,31 @@ reportextension 50000 "Posted Voucher Ext" extends "Posted Voucher"
             {
 
             }
+            column(Global_Dimension_1_Code; "Global Dimension 1 Code")
+            {
+
+            }
+            column(Global_Dimension_2_Code; "Global Dimension 2 Code")
+            {
+
+            }
+            column(ProjectCode; ProjectCode)
+            {
+
+            }
+            column(CostCentre; CostCentre)
+            {
+
+            }
+            column(Reason_Code; "Reason Code")
+            {
+
+            }
+            column(CommentCaption; CommentCaption)
+            {
+
+            }
+
         }
 
         modify("G/L Entry")
@@ -45,6 +70,12 @@ reportextension 50000 "Posted Voucher Ext" extends "Posted Voucher"
                         repeat
                             PurchComment += PurchComment + ' ' + PurchComm.Comment;
                         until PurchComm.Next() = 0;
+
+                    IF (PurchComment <> '') OR (SalesComment <> '') then
+                        CommentCaption := 'Comment';
+
+                    // ProjectCode := "Global Dimension 2 Code";
+                    // CostCentre := "Global Dimension 1 Code";
                 end;
                 //Message(PurchComment);
             end;
@@ -69,4 +100,7 @@ reportextension 50000 "Posted Voucher Ext" extends "Posted Voucher"
     var
         SalesComment: Text;
         PurchComment: text;
+        ProjectCode: Code[20];
+        CostCentre: Code[30];
+        CommentCaption: Text;
 }

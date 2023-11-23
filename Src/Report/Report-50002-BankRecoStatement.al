@@ -2,7 +2,8 @@ report 50002 "Bank Reco Statement"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BankRecoStatement.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Bank Account Statement"; "Bank Account Statement")

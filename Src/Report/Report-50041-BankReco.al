@@ -2,7 +2,8 @@ report 50041 "Bank Reco"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BankReco.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Integer; Integer)
@@ -244,9 +245,11 @@ report 50041 "Bank Reco"
             {
                 field("Start Date"; StartDate)
                 {
+                    ApplicationArea = All;
                 }
                 field("End Date"; EndDate)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

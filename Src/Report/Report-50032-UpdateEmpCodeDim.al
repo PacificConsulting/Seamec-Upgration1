@@ -1,7 +1,8 @@
 report 50032 "Update Emp Code Dim"
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("G/L Account"; "G/L Account")

@@ -62,6 +62,7 @@ xmlport 50055 ITems
                         Promoted = true;
                         PromotedCategory = Process;
                         PromotedIsBig = true;
+                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin

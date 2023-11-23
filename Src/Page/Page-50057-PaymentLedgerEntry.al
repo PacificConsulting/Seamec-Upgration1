@@ -5,6 +5,9 @@ page 50057 "Payment Ledger Entry"
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Payment Ledger Entry";
+    ApplicationArea = All;
+    UsageCategory = Lists;
+
 
     layout
     {

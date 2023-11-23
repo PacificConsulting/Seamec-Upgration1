@@ -2,6 +2,8 @@ report 50016 "RTGS/NEFT"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/RTGSNEFT.rdl';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {

@@ -3,7 +3,8 @@ report 50065 ProjectCodeupdate
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/ProjectCodeupdate.rdl';
     Permissions = TableData 112 = rmd;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
     }

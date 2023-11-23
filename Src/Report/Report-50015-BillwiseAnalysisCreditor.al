@@ -3,7 +3,8 @@ report 50015 "Billwise Analysis (Creditor)"
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BillwiseAnalysisCreditor.rdl';
     Caption = 'Aged Accounts Payable';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Vendor; Vendor)
@@ -572,32 +573,39 @@ report 50015 "Billwise Analysis (Creditor)"
                     field(AgedAsOf; EndingDate)
                     {
                         Caption = 'Aged As Of';
+                        ApplicationArea = All;
                     }
                     field(AgingBy; AgingBy)
                     {
                         Caption = 'Aging by';
                         OptionCaption = 'Due Date,Posting Date,Document Date';
+                        ApplicationArea = All;
                     }
                     field(PeriodLength; PeriodLength)
                     {
                         Caption = 'Period Length';
+                        ApplicationArea = All;
                     }
                     field(PrintAmountInLCY; PrintAmountInLCY)
                     {
                         Caption = 'Print Amounts in LCY';
+                        ApplicationArea = All;
                     }
                     field(PrintDetails; PrintDetails)
                     {
                         Caption = 'Print Details';
+                        ApplicationArea = All;
                     }
                     field(HeadingType; HeadingType)
                     {
                         Caption = 'Heading Type';
                         OptionCaption = 'Date Interval,Number of Days';
+                        ApplicationArea = All;
                     }
                     field(NewPagePerVendor; NewPagePerVendor)
                     {
                         Caption = 'New Page per Vendor';
+                        ApplicationArea = All;
                     }
                 }
             }

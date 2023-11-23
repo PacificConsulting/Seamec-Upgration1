@@ -8,6 +8,10 @@ pageextension 50011 UserSetupExt extends "User Setup"
             {
                 ApplicationArea = all;
             }
+            field("Delete Vendor"; Rec."Vendor Deletion")
+            {
+                ApplicationArea = all;
+            }
             field("Customer Master"; Rec."Customer Master")
             {
                 ApplicationArea = All;
@@ -124,7 +128,23 @@ pageextension 50011 UserSetupExt extends "User Setup"
             {
                 ApplicationArea = All;
             }
+            //PCPL-25/050723
+
+            field("Costcentre Code"; Rec."Costcentre Code")
+            {
+                ApplicationArea = all;
+            }
+            //PCPL-25/050723
         }
+        //PCPL-25/030823
+        addlast(Control1)
+        {
+            field("Posted Purchase Rcpt Modify"; Rec."Posted Purchase Rcpt Modify")
+            {
+                ApplicationArea = all;
+            }
+        }
+        //PCPL-25/030823
     }
 
     actions

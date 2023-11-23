@@ -2,7 +2,8 @@ report 50067 "Item Master"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/ItemMaster.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Item; Item)

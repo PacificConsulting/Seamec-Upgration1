@@ -2,7 +2,8 @@ report 50045 "Posted Entry Creation Date"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/PostedEntryCreationDate.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("G/L Entry"; "G/L Entry")

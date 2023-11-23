@@ -2,7 +2,8 @@ report 50014 "Purch. Bill for RTGS/NEFT"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/PurchBillforRTGSNEFT.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Vendor; Vendor)

@@ -3,6 +3,8 @@ page 50020 "G/L entry Manipulation"
     PageType = List;
     Permissions = TableData 17 = rim;
     SourceTable = "G/L Entry";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

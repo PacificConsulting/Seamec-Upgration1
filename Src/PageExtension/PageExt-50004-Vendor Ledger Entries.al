@@ -8,6 +8,10 @@ pageextension 50004 VendLedgEntrExt extends "Vendor Ledger Entries"
             {
                 ApplicationArea = All;
             }
+            field("Purchase Order No."; Rec."Purchase Order No.")
+            {
+                ApplicationArea = all;
+            }
         }
     }
 

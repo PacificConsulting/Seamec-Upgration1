@@ -2,6 +2,8 @@ report 50003 "User Posting Date Rights"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/UserPostingDateRights.rdl';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -85,15 +87,19 @@ report 50003 "User Posting Date Rights"
                 {
                     field("Allow Posting From"; frmdate)
                     {
+                        ApplicationArea = All;
                     }
                     field("Allow Posting To"; todate)
                     {
+                        ApplicationArea = All;
                     }
                     field("Process update"; boolprocess)
                     {
+                        ApplicationArea = All;
                     }
                     field("Process FA"; boolFA)
                     {
+                        ApplicationArea = All;
                     }
                 }
             }

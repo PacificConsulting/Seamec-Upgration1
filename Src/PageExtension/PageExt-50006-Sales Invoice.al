@@ -9,6 +9,17 @@ pageextension 50006 SalesInvExt extends "Sales Invoice"
                 ApplicationArea = all;
             }
         }
+        addlast(General)
+        {
+            field("Posting No."; Rec."Posting No.")
+            {
+                ApplicationArea = all;
+            }
+            field("Posting No. Series"; Rec."Posting No. Series")
+            {
+                ApplicationArea = all;
+            }
+        }
 
     }
 

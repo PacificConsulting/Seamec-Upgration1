@@ -1,7 +1,8 @@
 report 50058 "GSTR- Credit/Debit Note"
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Detailed GST Ledger Entry"; "Detailed GST Ledger Entry")
@@ -197,6 +198,7 @@ report 50058 "GSTR- Credit/Debit Note"
                 field(PrintToExcel; PrintToExcel)
                 {
                     Caption = 'Print To Excel';
+                    ApplicationArea = All;
                 }
             }
         }

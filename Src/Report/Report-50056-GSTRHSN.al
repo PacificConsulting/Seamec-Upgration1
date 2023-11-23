@@ -2,7 +2,8 @@ report 50056 "GSTR-HSN"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/GSTRHSN.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Detailed GST Ledger Entry"; "Detailed GST Ledger Entry")

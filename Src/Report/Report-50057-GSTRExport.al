@@ -1,7 +1,8 @@
 report 50057 "GSTR-Export"
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Detailed GST Ledger Entry"; "Detailed GST Ledger Entry")
@@ -48,6 +49,7 @@ report 50057 "GSTR-Export"
                 field(PrintToExcel; PrintToExcel)
                 {
                     Caption = 'Print To Excel';
+                    ApplicationArea = All;
                 }
             }
         }
@@ -86,7 +88,7 @@ report 50057 "GSTR-Export"
         recSalesInvhrd: Record 112;
         recVend: Record 23;
 
-   // [Scope('Internal')] pcpl-064
+    // [Scope('Internal')] pcpl-064
     procedure MakeExcelInfo()
     begin
         ExcelBuf.SetUseInfoSheet;
@@ -151,7 +153,7 @@ report 50057 "GSTR-Export"
         //>>PCPL-064
     end;
 
-  // [Scope('Internal')]  //PCPL-064
+    // [Scope('Internal')]  //PCPL-064
     procedure InitializeRequest()
     var
         k: Integer;

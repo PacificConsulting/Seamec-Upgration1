@@ -50,23 +50,21 @@ xmlport 50021 "Salary Upload 1"
 
                 trigger OnBeforeInsertRecord()
                 begin
-
-
                     rec_GenJnlLine.RESET;
                     rec_GenJnlLine.SETRANGE("Journal Template Name", 'JOURNAL VO');
                     rec_GenJnlLine.SETRANGE("Journal Batch Name", 'SALARY JV');
                     IF rec_GenJnlLine.FINDLAST THEN
                         intLine := rec_GenJnlLine."Line No.";
+
                     recGenJnlLine.INIT;
                     recGenJnlLine.VALIDATE("Journal Template Name", 'JOURNAL VO');
                     recGenJnlLine.VALIDATE("Journal Batch Name", 'SALARY JV'); //Avinash)
                     recGenJnlLine.VALIDATE("Document No.", cd_DocumentNo);
                     recGenJnlLine.VALIDATE("Source Code", 'JOURNALV');
                     recGenJnlLine.VALIDATE("Document Type", "Gen. Journal Line"."Document Type"::Invoice);
-                    recGenJnlLine.VALIDATE("Account Type", "Gen. Journal Line"."Account Type"::Vendor);
-
-                    recGenJnlLine.VALIDATE("Bal. Account Type", "Gen. Journal Line"."Bal. Account Type"::"G/L Account");
-                    recGenJnlLine.VALIDATE("Bal. Gen. Posting Type", "Gen. Journal Line"."Bal. Gen. Posting Type"::Purchase);
+                    recGenJnlLine.VALIDATE("Account Type", "Gen. Journal Line"."Account Type"::"G/L Account");
+                    // recGenJnlLine.VALIDATE("Bal. Account Type", "Gen. Journal Line"."Bal. Account Type"::"G/L Account");
+                    // recGenJnlLine.VALIDATE("Bal. Gen. Posting Type", "Gen. Journal Line"."Bal. Gen. Posting Type"::Purchase);
                     recGenJnlLine."Salary Transaction" := TRUE;
                     recGenJnlLine."Line No." := intLine + 10000;
                     recGenJnlLine."External Document No." := cd_DocumentNo;
@@ -78,27 +76,24 @@ xmlport 50021 "Salary Upload 1"
                     ShortCutDim2 := ShortDim2;
                     EVALUATE(decCreditAmt, CreditAmt);
                     IF decCreditAmt <> 0 THEN
-                        recGenJnlLine.VALIDATE("Credit Amount", decCreditAmt);
-                    //VALIDATE("Party Code");
+                        recGenJnlLine.VALIDATE("Debit Amount", decCreditAmt);
 
-
-                    // Anupam Start
                     Vendor.RESET;
                     Vendor.GET(PartyCode);
-                    recGenJnlLine.VALIDATE("Party Type", recGenJnlLine."Party Type"::Vendor);  //pcpl code uncommented
-                    recGenJnlLine.VALIDATE("Party Code", PartyCode);
+                    // recGenJnlLine.VALIDATE("Party Type", recGenJnlLine."Party Type"::Vendor);  //pcpl code uncommented
+                    // recGenJnlLine.VALIDATE("Party Code", PartyCode);
                     EVALUATE(PD, PostingDate);
                     recGenJnlLine.VALIDATE("Posting Date", PD);
-                    recGenJnlLine.Description := Vendor.Name;
-                    recGenJnlLine."Posting Group" := Vendor."Vendor Posting Group";
-                    recGenJnlLine."Salespers./Purch. Code" := Vendor."Purchaser Code";
-                    recGenJnlLine."Payment Terms Code" := Vendor."Payment Terms Code";
-                    recGenJnlLine.VALIDATE("Payment Terms Code");
-                    recGenJnlLine.VALIDATE("Account No.", AccNo);
-                    recGenJnlLine.VALIDATE("Bill-to/Pay-to No.", AccNo);
-                    recGenJnlLine.VALIDATE("Sell-to/Buy-from No.", AccNo);
+                    // recGenJnlLine.Description := Vendor.Name;
+                    // recGenJnlLine."Posting Group" := Vendor."Vendor Posting Group";
+                    // recGenJnlLine."Salespers./Purch. Code" := Vendor."Purchaser Code";
+                    // recGenJnlLine."Payment Terms Code" := Vendor."Payment Terms Code";
+                    // recGenJnlLine.VALIDATE("Payment Terms Code");
+                    recGenJnlLine.VALIDATE("Account No.", BalAccNo);
+                    recGenJnlLine.VALIDATE("Bill-to/Pay-to No.", BalAccNo);
+                    recGenJnlLine.VALIDATE("Sell-to/Buy-from No.", BalAccNo);
                     recGenJnlLine.VALIDATE("Currency Code", Vendor."Currency Code");
-                    recGenJnlLine.VALIDATE("Bal. Account No.", BalAccNo);
+                    //recGenJnlLine.VALIDATE("Bal. Account No.", BalAccNo);
                     recGenJnlLine."Gen. Posting Type" := 0;
                     recGenJnlLine."Gen. Bus. Posting Group" := '';
                     recGenJnlLine."Gen. Prod. Posting Group" := '';
@@ -111,11 +106,11 @@ xmlport 50021 "Salary Upload 1"
                     // recGenJnlLine."Bal. TDS/TCS Including SHECESS" := decTDS;//PCPL-065
                     // recGenJnlLine."Total TDS/TCS Incl. SHE CESS" := decTDS;//PCPL-065
                     // recGenJnlLine."TDS/TCS Base Amount" := decCreditAmt; //PCPL-065
-                    //recGenJnlLine."Surcharge Base Amount" := decCreditAmt; //PCPL-065
+                    // recGenJnlLine."Surcharge Base Amount" := decCreditAmt; //PCPL-065
                     recGenJnlLine."Manual Entry" := TRUE;
                     //<<OA.SB
                     // recGenJnlLine."TDS Nature of Deduction" := TdsNature; //PCPL-065
-                   // recGenJnlLine.VALIDATE("TDS Nature of Deduction"); //PCPL-065
+                    // recGenJnlLine.VALIDATE("TDS Nature of Deduction"); //PCPL-065
                     recGenJnlLine.VALIDATE("Shortcut Dimension 1 Code", ShortCutDim1);
                     recGenJnlLine.VALIDATE("Shortcut Dimension 2 Code", ShortCutDim2);
                     tempDimSetEntry.DELETEALL;
@@ -132,8 +127,147 @@ xmlport 50021 "Salary Upload 1"
                     tempDimSetEntry.VALIDATE("Dimension Value Code", ShortDim3);
                     tempDimSetEntry.INSERT;
                     recGenJnlLine."Dimension Set ID" := recDimSetEntry.GetDimensionSetID(tempDimSetEntry);
+                    intLine := recGenJnlLine."Line No.";
                     recGenJnlLine.MODIFY;
+
+                    //PCPL-25/270623 for tds
+                    if TDSTCSAmt <> '' then begin
+                        PurchPay.Get();
+                        PurchPay.TestField("TDS Salary GL");
+                        EVALUATE(decTDS, TDSTCSAmt);
+
+                        recGenJnlL.INIT;
+                        recGenJnlL.VALIDATE("Journal Template Name", 'JOURNAL VO');
+                        recGenJnlL.VALIDATE("Journal Batch Name", 'SALARY JV');
+                        recGenJnlL.VALIDATE("Document No.", cd_DocumentNo);
+                        recGenJnlL.VALIDATE("Source Code", 'JOURNALV');
+                        recGenJnlL.VALIDATE("Document Type", "Gen. Journal Line"."Document Type"::Invoice);
+                        recGenJnlL.VALIDATE("Account Type", "Gen. Journal Line"."Account Type"::"G/L Account");
+                        recGenJnlL.VALIDATE("Bal. Account Type", "Gen. Journal Line"."Bal. Account Type"::"G/L Account");
+                        recGenJnlL.VALIDATE("Bal. Gen. Posting Type", "Gen. Journal Line"."Bal. Gen. Posting Type"::Purchase);
+                        recGenJnlL."Salary Transaction" := TRUE;
+                        recGenJnlL."Line No." := intLine + 10000;
+                        recGenJnlL."External Document No." := cd_DocumentNo;
+                        recGenJnlL.INSERT;
+
+                        ICount := ICount + 1;
+                        TdsNature := TDSNature11;
+                        ShortCutDim1 := ShortDim1;
+                        ShortCutDim2 := ShortDim2;
+                        // EVALUATE(decCreditAmt, CreditAmt);
+                        // IF decCreditAmt <> 0 THEN
+                        //     recGenJnlL.VALIDATE("Credit Amount", decCreditAmt);
+                        // Vendor.RESET;
+                        // Vendor.GET(PartyCode);
+                        // recGenJnlL.VALIDATE("Party Type", recGenJnlL."Party Type"::Vendor);  
+                        // recGenJnlL.VALIDATE("Party Code", PartyCode);
+                        EVALUATE(PD, PostingDate);
+                        recGenJnlL.VALIDATE("Posting Date", PD);
+                        // recGenJnlL.Description := Vendor.Name;
+                        // recGenJnlL."Posting Group" := Vendor."Vendor Posting Group";
+                        // recGenJnlL."Salespers./Purch. Code" := Vendor."Purchaser Code";
+                        // recGenJnlL."Payment Terms Code" := Vendor."Payment Terms Code";
+                        // recGenJnlL.VALIDATE("Payment Terms Code");
+                        recGenJnlL.VALIDATE("Account No.", PurchPay."TDS Salary GL");
+                        // recGenJnlL.VALIDATE("Bill-to/Pay-to No.", AccNo);
+                        // recGenJnlL.VALIDATE("Sell-to/Buy-from No.", AccNo);
+                        //recGenJnlL.VALIDATE("Currency Code", Vendor."Currency Code");
+                        //recGenJnlL.VALIDATE("Bal. Account No.", BalAccNo);
+                        recGenJnlL."Gen. Posting Type" := 0;
+                        recGenJnlL."Gen. Bus. Posting Group" := '';
+                        recGenJnlL."Gen. Prod. Posting Group" := '';
+                        recGenJnlL."VAT Bus. Posting Group" := '';
+                        recGenJnlL."VAT Prod. Posting Group" := '';
+                        EVALUATE(decTDS, TDSTCSAmt);
+                        recGenJnlL.Validate("Credit Amount", Abs(decTDS));
+
+                        recGenJnlL."Manual Entry" := TRUE;
+                        recGenJnlL.VALIDATE("Shortcut Dimension 1 Code", ShortCutDim1);
+                        recGenJnlL.VALIDATE("Shortcut Dimension 2 Code", ShortCutDim2);
+                        tempDimSetE.DELETEALL;
+                        tempDimSetE.INIT;
+                        tempDimSetE.VALIDATE("Dimension Code", 'COSTCENTRE');
+                        tempDimSetE.VALIDATE("Dimension Value Code", ShortDim1);
+                        tempDimSetE.INSERT;
+                        tempDimSetE.INIT;
+                        tempDimSetE.VALIDATE("Dimension Code", 'PROJECT');
+                        tempDimSetE.VALIDATE("Dimension Value Code", ShortDim2);
+                        tempDimSetE.INSERT;
+                        tempDimSetE.INIT;
+                        tempDimSetE.VALIDATE("Dimension Code", 'EMPLOYEE');
+                        tempDimSetE.VALIDATE("Dimension Value Code", ShortDim3);
+                        tempDimSetE.INSERT;
+                        recGenJnlL."Dimension Set ID" := recDimSetEntry.GetDimensionSetID(tempDimSetE);
+                        intLine := recGenJnlL."Line No.";
+                        recGenJnlL.Correction := false;
+                        recGenJnlL.MODIFY;
+                    end;
+                    if AccNo <> '' then begin
+                        recGenJnlLine.INIT;
+                        recGenJnlLine.VALIDATE("Journal Template Name", 'JOURNAL VO');
+                        recGenJnlLine.VALIDATE("Journal Batch Name", 'SALARY JV'); //Avinash)
+                        recGenJnlLine.VALIDATE("Document No.", cd_DocumentNo);
+                        recGenJnlLine.VALIDATE("Source Code", 'JOURNALV');
+                        recGenJnlLine.VALIDATE("Document Type", "Gen. Journal Line"."Document Type"::Invoice);
+                        recGenJnlLine.VALIDATE("Account Type", "Gen. Journal Line"."Account Type"::Vendor);
+                        recGenJnlLine.VALIDATE("Bal. Account Type", "Gen. Journal Line"."Bal. Account Type"::"G/L Account");
+                        recGenJnlLine.VALIDATE("Bal. Gen. Posting Type", "Gen. Journal Line"."Bal. Gen. Posting Type"::Purchase);
+                        recGenJnlLine."Salary Transaction" := TRUE;
+                        recGenJnlLine."Line No." := intLine + 10000;
+                        recGenJnlLine."External Document No." := cd_DocumentNo;
+                        recGenJnlLine.INSERT;
+
+                        ICount := ICount + 1;
+                        TdsNature := TDSNature11;
+                        ShortCutDim1 := ShortDim1;
+                        ShortCutDim2 := ShortDim2;
+
+                        IF decCreditAmt - ABS(decTDS) <> 0 THEN
+                            recGenJnlLine.VALIDATE("Credit Amount", ABS(decCreditAmt - Abs(decTDS)));
+
+                        Vendor.RESET;
+                        Vendor.GET(AccNo);
+                        // recGenJnlLine.VALIDATE("Party Type", recGenJnlLine."Party Type"::Vendor);  //pcpl code uncommented
+                        // recGenJnlLine.VALIDATE("Party Code", PartyCode);
+                        EVALUATE(PD, PostingDate);
+                        recGenJnlLine.VALIDATE("Posting Date", PD);
+                        recGenJnlLine.Description := Vendor.Name;
+                        recGenJnlLine."Posting Group" := Vendor."Vendor Posting Group";
+                        recGenJnlLine."Salespers./Purch. Code" := Vendor."Purchaser Code";
+                        recGenJnlLine."Payment Terms Code" := Vendor."Payment Terms Code";
+                        recGenJnlLine.VALIDATE("Payment Terms Code");
+                        recGenJnlLine.VALIDATE("Account No.", AccNo);
+                        recGenJnlLine.VALIDATE("Bill-to/Pay-to No.", AccNo);
+                        recGenJnlLine.VALIDATE("Sell-to/Buy-from No.", AccNo);
+                        recGenJnlLine.VALIDATE("Currency Code", Vendor."Currency Code");
+                        //recGenJnlLine.VALIDATE("Bal. Account No.", AccNo);
+                        recGenJnlLine."Gen. Posting Type" := 0;
+                        recGenJnlLine."Gen. Bus. Posting Group" := '';
+                        recGenJnlLine."Gen. Prod. Posting Group" := '';
+                        recGenJnlLine."VAT Bus. Posting Group" := '';
+                        recGenJnlLine."VAT Prod. Posting Group" := '';
+                        recGenJnlLine."Manual Entry" := TRUE;
+                        recGenJnlLine.VALIDATE("Shortcut Dimension 1 Code", ShortCutDim1);
+                        recGenJnlLine.VALIDATE("Shortcut Dimension 2 Code", ShortCutDim2);
+                        tempDimSetEntry.DELETEALL;
+                        tempDimSetEntry.INIT;
+                        tempDimSetEntry.VALIDATE("Dimension Code", 'COSTCENTRE');
+                        tempDimSetEntry.VALIDATE("Dimension Value Code", ShortDim1);
+                        tempDimSetEntry.INSERT;
+                        tempDimSetEntry.INIT;
+                        tempDimSetEntry.VALIDATE("Dimension Code", 'PROJECT');
+                        tempDimSetEntry.VALIDATE("Dimension Value Code", ShortDim2);
+                        tempDimSetEntry.INSERT;
+                        tempDimSetEntry.INIT;
+                        tempDimSetEntry.VALIDATE("Dimension Code", 'EMPLOYEE');
+                        tempDimSetEntry.VALIDATE("Dimension Value Code", ShortDim3);
+                        tempDimSetEntry.INSERT;
+                        recGenJnlLine."Dimension Set ID" := recDimSetEntry.GetDimensionSetID(tempDimSetEntry);
+                        recGenJnlLine.MODIFY;
+                    end;
+                    //PCPL-25/270623
                     cd_DocumentNo := INCSTR(cd_DocumentNo);
+
                 end;
             }
         }
@@ -200,5 +334,9 @@ xmlport 50021 "Salary Upload 1"
         tempDimSetEntry: Record 480 temporary;
         recDimSetEntry: Record 480;
         decTDS: Decimal;
+        recGenJnlL: Record "Gen. Journal Line";
+        tempDimSetE: Record 480 temporary;
+        rec_GenJnlL: Record "Gen. Journal Line";
+        PurchPay: Record "Purchases & Payables Setup";
 }
 

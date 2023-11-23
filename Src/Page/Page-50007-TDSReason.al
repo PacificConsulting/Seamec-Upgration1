@@ -2,6 +2,8 @@ page 50007 "TDS Reason"
 {
     PageType = List;
     SourceTable = "50003";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

@@ -2,7 +2,8 @@ report 50060 "Tax Sales Invoice"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/TaxSalesInvoice.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Sales Invoice Header"; "Sales Invoice Header")
@@ -390,6 +391,7 @@ report 50060 "Tax Sales Invoice"
                 {
                     field("No Of Copies"; NoOfCopies)
                     {
+                        ApplicationArea = All;
                     }
                 }
             }

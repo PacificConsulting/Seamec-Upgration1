@@ -1,7 +1,8 @@
 report 50030 "Vesselwise Inc. and  Expd."
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("G/L Account"; "G/L Account")
@@ -768,17 +769,21 @@ report 50030 "Vesselwise Inc. and  Expd."
             {
                 field("From Date"; FromDate)
                 {
+                    ApplicationArea = All;
                 }
                 field("To Date"; ToDate)
                 {
+                    ApplicationArea = All;
                 }
                 field("Cost Center"; costCentre)
                 {
                     // TableRelation = "Dimension Value".Code WHERE("Dimension Code"= CONST("COSTCENTRE")); //PCPL-064
+                    ApplicationArea = All;
                 }
                 field("Project code"; projectcode)
                 {
                     //TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST(PROJECT)); //PCPL-064
+                    ApplicationArea = All;
                 }
             }
         }

@@ -3,7 +3,8 @@ report 50042 "Bank Reco. Statement- New-2"
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BankRecoStatementNew2.rdl';
     Caption = 'Bank Reco. Statement- RSPL';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Bank Account Statement"; "Bank Account Statement")
@@ -366,6 +367,7 @@ report 50042 "Bank Reco. Statement- New-2"
                 field(PostDate; PostDate)
                 {
                     Caption = 'Posting Date';
+                    ApplicationArea = All;
                 }
             }
         }

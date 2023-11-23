@@ -1,7 +1,7 @@
 report 50040 "List- Purchase Invoices"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Src/Report Layout/ListPurchaseInvoices.rdl';
+    RDLCLayout = './Src/Report Layout/ListPurchaseInvoices New.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 
@@ -10,11 +10,13 @@ report 50040 "List- Purchase Invoices"
         dataitem("Vendor Ledger Entry"; "Vendor Ledger Entry")
         {
             DataItemTableView = SORTING("Vendor No.", "Posting Date", "Currency Code")
-                                WHERE("Source Code" = FILTER(''));//(Purchase)); PCPL-064
+                                WHERE("Source Code" = filter('PURCHASES'));//(Purchase)); PCPL-064
             RequestFilterFields = "Document No.";
             column(DocNo; "Vendor Ledger Entry"."Document No.")
             {
             }
+            column(GRNno; GRNno) { }
+            column(GRndate; GRndate) { }
             column(PostingDate; "Vendor Ledger Entry"."Posting Date")
             {
             }
@@ -102,7 +104,7 @@ report 50040 "List- Purchase Invoices"
             column(OriAmtLCY; -"Remaining Amt. (LCY)")
             {
             }
-            column(PONO; '')//"Vendor Ledger Entry"."Purchase Order No.") PCPL-064
+            column(PONO; "Vendor Ledger Entry"."Purchase Order No.")// PCPL-064
             {
             }
             column(ServiceTaxGroup; '')// ServiceTaxEntry."Service Tax Group Code") PCPL-064
@@ -226,6 +228,22 @@ report 50040 "List- Purchase Invoices"
                     //recXlBuff.AddColumn(TotalGrossAmount,FALSE,'',FALSE,FALSE,TRUE,'');
                     //recXlBuff.AddColumn((TotalGrossAmount/currfact),FALSE,'',FALSE,FALSE,TRUE,'');   //002
                 END;
+
+                //PCPL-25/280823
+                Clear(GRndate);
+                Clear(GRNno);
+                PIL.Reset();
+                PIL.SetRange("Document No.", "Vendor Ledger Entry"."Document No.");
+                PIL.SetFilter(Type, '<>%1', PIL.Type::" ");
+                if PIL.FindSet() then begin
+                    PurchrecpH.Reset();
+                    PurchrecpH.SetRange("No.", PIL."Receipt No.");
+                    if PurchrecpH.FindFirst() then begin
+                        GRndate := PurchrecpH."Posting Date";
+                        GRNno := PurchrecpH."No.";
+                    end;
+                end;
+                //PCPL-25/280823
             END;
 
             /* PCPL-064
@@ -252,9 +270,11 @@ report 50040 "List- Purchase Invoices"
             {
                 field("From Date"; FromDate)
                 {
+                    ApplicationArea = All;
                 }
                 field("To Date"; ToDate)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -274,6 +294,10 @@ report 50040 "List- Purchase Invoices"
     end;
 
     var
+        PurchrecpH: Record "Purch. Rcpt. Header";
+        PIL: Record "Purch. Inv. Line";
+        GRNno: Code[20];
+        GRndate: Date;
         recCompanyInfo: Record 79;
         recGLSetup: Record 98;
         recVend: Record 23;

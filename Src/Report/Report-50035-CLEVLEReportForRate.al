@@ -2,6 +2,8 @@ report 50035 "CLE-VLE Report For Rate"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/CLEVLEReportForRate.rdl';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -54,9 +56,11 @@ report 50035 "CLE-VLE Report For Rate"
             {
                 field("For Customer Ledger Update"; "For Customer Ledger Update")
                 {
+                    ApplicationArea = All;
                 }
                 field("For Vendor Ledger Update"; "For Vendor Ledger Update")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

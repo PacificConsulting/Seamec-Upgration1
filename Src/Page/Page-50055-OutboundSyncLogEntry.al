@@ -6,6 +6,9 @@ page 50055 "Outbound Sync. Log Entry"
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Outbound Sync. Log Entry";
+    ApplicationArea = All;
+    UsageCategory = Lists;
+
 
     layout
     {

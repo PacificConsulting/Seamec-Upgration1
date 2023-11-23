@@ -2,6 +2,7 @@ tableextension 50010 PurchHdrExt extends "Purchase Header"
 {
     fields
     {
+
         field(50001; "Purchase Type"; Option)
         {
             OptionMembers = ,Vessel,Others;
@@ -23,7 +24,6 @@ tableextension 50010 PurchHdrExt extends "Purchase Header"
         {
             DataClassification = ToBeClassified;
         }
-
         modify("Shortcut Dimension 2 Code")
         {
             trigger OnBeforeValidate()
@@ -41,6 +41,14 @@ tableextension 50010 PurchHdrExt extends "Purchase Header"
             end;
         }
     }
+    //PCPL-25/140723
+    trigger OnAfterInsert()
+    begin
+        if "Order Date" <> 0D then begin
+            Rec.Validate("Expected Receipt Date", CalcDate('<90D>', Rec."Order Date"));
+        end;
+    end;
+    //PCPL-25/140723
     procedure CheckTDSLimit(DocNo: Code[20])
     var
         TotalTDSBaseAmt: Decimal;

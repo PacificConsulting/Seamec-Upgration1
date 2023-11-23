@@ -2,7 +2,8 @@ report 50071 "UpdatePurchase Line TDS"
 {
     Caption = 'Update Vendor GST No. On PO';
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Purchase Line"; "Purchase Line")

@@ -2,7 +2,8 @@ report 50070 UpdatePurchaseHeader
 {
     Caption = 'Update Vendor GST No. On PO';
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Purchase Header"; "Purchase Header")

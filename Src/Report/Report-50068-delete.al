@@ -3,7 +3,8 @@ report 50068 delete
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/delete.rdl';
     ProcessingOnly = false;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Fixed Asset"; "Fixed Asset")

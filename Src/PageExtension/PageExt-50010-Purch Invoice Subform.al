@@ -2,6 +2,15 @@ pageextension 50010 PurchInvSubfromExt extends "Purch. Invoice Subform"
 {
     layout
     {
+
+        modify("Gen. Bus. Posting Group")
+        {
+            Visible = true;
+        }
+        modify("Gen. Prod. Posting Group")
+        {
+            Visible = true;
+        }
         addafter("Line No.")
         {
             field("TDS Reason Code"; Rec."TDS Reason Code")

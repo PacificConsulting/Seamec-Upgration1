@@ -13,7 +13,8 @@ report 50025 "Cheque Printing -Yes Multiple"
 
     Caption = 'Check';
     Permissions = TableData 270 = m;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(VoidGenJnlLine; "Gen. Journal Line")
@@ -1592,6 +1593,7 @@ report 50025 "Cheque Printing -Yes Multiple"
                     {
                         Caption = 'Bank Account';
                         TableRelation = "Bank Account";
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1601,35 +1603,43 @@ report 50025 "Cheque Printing -Yes Multiple"
                     field(LastCheckNo; UseCheckNo)
                     {
                         Caption = 'Last Check No.';
+                        ApplicationArea = All;
                     }
                     field(OneCheckPrVendor; OneCheckPrVendor)
                     {
                         Caption = 'One Check per Vendor per Document No.';
+                        ApplicationArea = All;
                         MultiLine = true;
                     }
                     field(ReprintChecks; ReprintChecks)
                     {
                         Caption = 'Reprint Checks';
+                        ApplicationArea = All;
                     }
                     field(TestPrinting; TestPrint)
                     {
                         Caption = 'Test Print';
+                        ApplicationArea = All;
                     }
                     field(PreprintedStub; PreprintedStub)
                     {
                         Caption = 'Preprinted Stub';
+                        ApplicationArea = All;
                     }
                     field(boolPrintAuthSign; boolPrintAuthSign)
                     {
                         Caption = 'Print Authorised Signatory''s Text';
+                        ApplicationArea = All;
                     }
                     field(blnPayee; blnPayee)
                     {
                         Caption = 'A/c Payee';
+                        ApplicationArea = All;
                     }
                     field(txtPrnDtl; txtPrnDtl)
                     {
                         Caption = 'Print Text (A/c No.)';
+                        ApplicationArea = All;
                     }
                 }
             }

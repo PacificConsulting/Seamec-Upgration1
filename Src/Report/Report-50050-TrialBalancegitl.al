@@ -2,7 +2,8 @@ report 50050 "Trial Balance gitl"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/TrialBalancegitl.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("G/L Account"; "G/L Account")
@@ -125,9 +126,11 @@ report 50050 "Trial Balance gitl"
             {
                 field("Show Account With Balance"; SHowAccountwithBalance)
                 {
+                    ApplicationArea = All;
                 }
                 field("Print To Excel"; "Export To Excel")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

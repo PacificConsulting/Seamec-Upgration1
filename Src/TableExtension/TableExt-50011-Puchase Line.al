@@ -9,7 +9,7 @@ tableextension 50011 PurchLineExt extends "Purchase Line"
         field(50002; "TDS Reason Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = "TDS Reason";
+            TableRelation = "TDS Reason";
         }
         modify(Type)
         {

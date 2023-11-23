@@ -2,6 +2,8 @@ report 50061 "Purchase Line Report"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/PurchaseLineReport.rdl';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {

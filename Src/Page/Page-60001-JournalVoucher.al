@@ -16,6 +16,8 @@ page 60001 "Journal Voucher-"
     PageType = Worksheet;
     SaveValues = true;
     SourceTable = 81;
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

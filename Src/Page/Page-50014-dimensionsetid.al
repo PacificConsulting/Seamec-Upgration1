@@ -2,6 +2,8 @@ page 50014 "dimension setid"
 {
     PageType = List;
     SourceTable = "G/L Entry";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

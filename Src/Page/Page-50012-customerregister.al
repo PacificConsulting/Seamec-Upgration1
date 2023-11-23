@@ -1,6 +1,8 @@
 page 50012 "customer register"
 {
     SourceTable = "Customer Wise Complaint Regst";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

@@ -2,6 +2,8 @@ report 50000 "50000"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/50000.rdl';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     //Temp comment
     dataset
     {

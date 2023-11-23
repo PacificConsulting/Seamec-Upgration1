@@ -2,7 +2,7 @@
   "id": "1cd8483e-fced-4fb8-87ea-a223d0142dab",
   "name": "Seamec Upgration",
   "publisher": "Pacific",
-  "version": "1.0.0.0",
+  "version": "1.0.0.36",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -63,7 +63,7 @@
     "allowDownloadingSource": true,
     "includeSourceInSymbolFile": true
   },
-  "runtime": "9.0",
+  "runtime": "10.0",
   "features": [
     "NoImplicitWith"
   ]

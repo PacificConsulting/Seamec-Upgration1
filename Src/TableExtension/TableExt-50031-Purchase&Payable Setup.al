@@ -31,6 +31,12 @@ tableextension 50031 PurchPayableSetup extends "Purchases & Payables Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(50010; "TDS Salary GL"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "G/L Account";
+            Description = 'PCPL-25/270623';
+        }
 
     }
 

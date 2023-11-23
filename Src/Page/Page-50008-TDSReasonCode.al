@@ -3,6 +3,8 @@ page 50008 "TDS Reason Code"
     Caption = 'Gen. Product Posting Groups';
     PageType = List;
     SourceTable = "TDS Reason";
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {

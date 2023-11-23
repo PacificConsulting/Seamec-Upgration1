@@ -3,6 +3,8 @@ report 50011 "Billwise Analysis (Debtors)"
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BillwiseAnalysisDebtors.rdl';
     Caption = 'Aged Accounts Receivable';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
@@ -641,32 +643,39 @@ report 50011 "Billwise Analysis (Debtors)"
                     field(AgedAsOf; EndingDate)
                     {
                         Caption = 'Aged As Of';
+                        ApplicationArea = All;
                     }
                     field(Agingby; AgingBy)
                     {
                         Caption = 'Aging by';
                         OptionCaption = 'Due Date,Posting Date,Document Date';
+                        ApplicationArea = All;
                     }
                     field(PeriodLength; PeriodLength)
                     {
                         Caption = 'Period Length';
+                        ApplicationArea = All;
                     }
                     field(AmountsinLCY; PrintAmountInLCY)
                     {
                         Caption = 'Print Amounts in LCY';
+                        ApplicationArea = All;
                     }
                     field(PrintDetails; PrintDetails)
                     {
                         Caption = 'Print Details';
+                        ApplicationArea = All;
                     }
                     field(HeadingType; HeadingType)
                     {
                         Caption = 'Heading Type';
                         OptionCaption = 'Date Interval,Number of Days';
+                        ApplicationArea = All;
                     }
                     field(perCustomer; NewPagePercustomer)
                     {
                         Caption = 'New Page per Customer';
+                        ApplicationArea = All;
                     }
                 }
             }

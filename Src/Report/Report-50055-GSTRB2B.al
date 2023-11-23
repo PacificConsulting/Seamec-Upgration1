@@ -1,7 +1,8 @@
 report 50055 "GSTR-B2B"
 {
     ProcessingOnly = true;
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem("Detailed GST Ledger Entry"; "Detailed GST Ledger Entry")
@@ -17,10 +18,10 @@ report 50055 "GSTR-B2B"
                 IF "Detailed GST Ledger Entry"."GST Component Code" = 'SGST' THEN
                     CurrReport.SKIP;
                 InitializeRequest;
-                IF recSalesInvhrd.GET("Detailed GST Ledger Entry"."Document No.") THEN BEGIN
-                    // IF recSalesInvhrd."Debit Note" THEN pcl-064
-                    CurrReport.SKIP;
-                END;
+                // IF recSalesInvhrd.GET("Detailed GST Ledger Entry"."Document No.") THEN BEGIN
+                //     // IF recSalesInvhrd."Debit Note" THEN pcl-064
+                //     CurrReport.SKIP;
+                // END;
                 IF NoBuyer <> "Buyer/Seller Reg. No." THEN BEGIN
                     NoOfRecipient := NoOfRecipient + 1;
                     NoBuyer := "Buyer/Seller Reg. No.";
@@ -44,7 +45,7 @@ report 50055 "GSTR-B2B"
                     //txtData[25] := FORMAT(PurchInvHeader."Document Date");
                 END ELSE
                     IF recSalesInvhrd.GET("Detailed GST Ledger Entry"."Document No.") THEN BEGIN
-                        MESSAGE(recSalesInvhrd."No.");
+                        //MESSAGE(recSalesInvhrd."No.");
                         CustLedgerEntry.RESET;
                         CustLedgerEntry.SETRANGE("Document Type", CustLedgerEntry."Document Type"::Payment);
                         CustLedgerEntry.SETRANGE("Document No.", recSalesInvhrd."Applies-to Doc. No.");
@@ -68,9 +69,9 @@ report 50055 "GSTR-B2B"
                 //txtData[4] := FORMAT("Amount to Customer/Vendor");
                 //PCPL-0070 21Dec2022 <<
                 PIH.RESET;
-                PIH.GET("Detailed GST Ledger Entry"."Document No.");
+                IF PIH.GET("Detailed GST Ledger Entry"."Document No.") then;
                 recVendor.RESET;
-                recVendor.GET(PIH."Buy-from Vendor No.");
+                If recVendor.GET(PIH."Buy-from Vendor No.") Then;
                 txtData[4] := FORMAT(recVendor."GST Registration No.");
                 // txtData[4] := FORMAT("Detailed GST Ledger Entry"."Buyer/Seller Reg. No.");
                 //PCPL-0070 21Dec2022>>
@@ -224,6 +225,7 @@ report 50055 "GSTR-B2B"
                 field(PrintToExcel; PrintToExcel)
                 {
                     Caption = 'Print To Excel';
+                    ApplicationArea = All;
                 }
             }
         }

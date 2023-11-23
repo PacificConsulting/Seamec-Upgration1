@@ -127,6 +127,21 @@ tableextension 50013 UserIDExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(50030; "Costcentre Code"; Text[1024])
+        {
+            DataClassification = ToBeClassified;
+            Description = 'PCPL-25/050723';
+        }
+
+        field(50032; "Posted Purchase Rcpt Modify"; Boolean)
+        {
+            Description = 'PCPL-25/030823';
+        }
+        field(50033; "Vendor Deletion"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
     var
         myInt: Integer;

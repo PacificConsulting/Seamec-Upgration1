@@ -116,9 +116,29 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
             NotificationAction.Scope := NotificationAction.Scope::LocalScope;
             NotificationAction.Send();
         end;
+
+
     end;
     //end;
     // PCPL-0070 >> 08Feb2023
+
+    trigger OnDeleteRecord(): Boolean //pcpl-065 2/11/2023
+    var
+        recusersetup: Record "User Setup";
+    begin
+        recusersetup.Reset();
+        recusersetup.SetRange("User ID", UserId);
+        if recusersetup.FindFirst() then begin
+            if recusersetup."Vendor Deletion" = false then begin
+                Error('You do not have permission');
+
+            end;
+
+        end;
+
+
+
+    end;
 
     trigger OnClosePage()// PCPL-064
     var
@@ -157,9 +177,11 @@ pageextension 50003 VendorCardExt1 extends "Vendor Card"
         rec.TestField("E-Mail");
         rec.TestField("Phone No.");
         rec.TestField("Gen. Bus. Posting Group");
-        rec.TestField("P.A.N. No.");
+
         if (rec."GST Vendor Type" = rec."GST Vendor Type"::Registered) then
             rec.TestField("GST Registration No.");
+        if (rec."GST Vendor Type" <> rec."GST Vendor Type"::Import) then //pcpl-06426sep2023
+            rec.TestField("P.A.N. No.");
 
         //rec.TestField(MSME);
         //rec.TestField("MSME No.");

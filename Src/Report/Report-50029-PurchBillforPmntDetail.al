@@ -2,7 +2,8 @@ report 50029 "Purch. Bill for Pmnt. Detail"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/PurchBillforPmntDetail.rdl';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
     dataset
     {
         dataitem(Vendor; Vendor)

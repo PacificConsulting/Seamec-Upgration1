@@ -3,6 +3,8 @@ report 50043 "Bank Reco. Statement- New"
     DefaultLayout = RDLC;
     RDLCLayout = './Src/Report Layout/BankRecoStatementNew.rdl';
     Caption = 'Bank Reco. Statement- RSPL';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
 
     dataset
     {
