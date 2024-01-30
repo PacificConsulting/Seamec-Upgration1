@@ -306,7 +306,7 @@ report 50040 "List- Purchase Invoices"
         FromDate: Date;
         ToDate: Date;
         dataCurrCode: Code[10];
-        dataVendName: Text[50];
+        dataVendName: Text[250];
         dataPaymentDocNo: Code[20];
         dataPaymentDate: Date;
         RecpurchInvline: Record 123;

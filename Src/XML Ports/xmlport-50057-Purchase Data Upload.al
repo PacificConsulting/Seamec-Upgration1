@@ -39,7 +39,16 @@ xmlport 50057 "Purchase Document Upload"
                 //textelement(GstGrpType) { }
                 textelement(TDsreasoncode) { }
                 textelement(postingDesc) { }
+                textelement("InvoiceGoodReceiptDate")
+                { }
+                textelement(GRNNo)
+                {
 
+                }
+                textelement(VendorOrderNo)
+                {
+
+                }
                 trigger OnBeforeInsertRecord()
                 begin
                     PurchPay.Get();
@@ -67,6 +76,13 @@ xmlport 50057 "Purchase Document Upload"
                         PurchaseHeader.VALIDATE("Shortcut Dimension 2 Code", GlobalDimension2);
                         PurchaseHeader.Validate("Posting Description", postingDesc);
                         PurchaseHeader.Validate("Gen. Bus. Posting Group", GenBusPostingGrp);
+                        PurchaseHeader.Validate("Vendor Shipment No.", GRNNo);
+                        PurchaseHeader.Validate("Vendor Order No.", VendorOrderNo);
+                        if InvoiceGoodReceiptDate <> '' then begin
+                            Evaluate(InvoiceGoodReceiptDateV, InvoiceGoodReceiptDate);
+                            PurchaseHeader.Validate("Invoice Receipt Date", InvoiceGoodReceiptDateV);
+                        end;
+
                         PurchaseHeader.MODIFY(true);
                         COMMIT;
 
@@ -175,6 +191,7 @@ xmlport 50057 "Purchase Document Upload"
         Linenumber: Integer;
         PurchaseHeader: Record 38;
         PostDate: Date;
+        InvoiceGoodReceiptDateV: Date;
         DocDate: Date;
         PurchaseLine: Record 39;
         Unit: Decimal;

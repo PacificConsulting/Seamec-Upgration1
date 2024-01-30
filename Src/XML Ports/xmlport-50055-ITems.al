@@ -59,9 +59,10 @@ xmlport 50055 ITems
                     {
                         Caption = 'View Table Data';
                         Image = "Table";
-                        Promoted = true;
-                        PromotedCategory = Process;
-                        PromotedIsBig = true;
+                        /// Promoted = true;
+                        // PromotedCategory = Process;
+                        //PromotedIsBig = true;
+
                         ApplicationArea = All;
 
                         trigger OnAction()

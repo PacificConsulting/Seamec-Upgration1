@@ -49,11 +49,39 @@ pageextension 50008 PurchaseInvExt extends "Purchase Invoice"
             Caption = 'Vendor Invoice Date';
         }
         // Add changes to page layout here
+        modify("Assigned User ID") //pcpl-064 26dec2023
+        {
+            Editable = false;
+        }
     }
 
 
     actions
     {
+        addafter(SendApprovalRequest)
+        {
+            action("Update Maker")
+            {
+                Caption = 'Update Maker';
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = Create;
+                trigger OnAction()
+                begin
+                    rec.Validate("Assigned User ID", UserId);
+                end;
+            }
+        }
+        modify(SendApprovalRequest)
+        {
+            trigger OnBeforeAction()
+
+            begin
+                if rec."Assigned User ID" = '' then
+                    Error('Assigned User Id can not be Blank.Please Update Maker');
+            end;
+        }
         modify(Post)
         {
             Trigger OnBeforeAction()
